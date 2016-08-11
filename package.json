@@ -1,6 +1,6 @@
 {
-  "name": "saga-login-flow",
-  "version": "0.0.0",
+  "name": "solid-saga-login-flow",
+  "version": "0.0.1",
   "description": "A login/register flow built with React & Redux Saga",
   "scripts": {
     "start": "node server.js",
