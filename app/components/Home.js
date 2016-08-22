@@ -18,8 +18,11 @@ class Home extends Component {
             <p>Todo:</p>
               <ul>
                 <li>Fix wildly broken tests</li>
-                <li>Fix auth to handle errors</li>
+                <li>Fix auth to handle errors (see TODOs in <code>app/auth/index.js</code></li>
                 <li>Make Registration work</li>
+                <li>Spit out a sampling of whatever data lurks under the user's WebID</li>
+                <li>Explore <a href='https://melvincarvalho.gitbooks.io/solid-tutorials/content/chapter1.html'>Melvin's tutorial</a> and <a href='https://github.com/solid/solid-signup'>solid-signup</a> for more ideas.</li>
+                <li>Switch this all over to using the <a href='https://github.com/solid/solid-client'>solid-client</a>
               </ul>
           </section>
         </div>
