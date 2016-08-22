@@ -16,13 +16,13 @@ if (global.process && process.env.NODE_ENV === 'test') {
 let auth = {
   /**
   * Logs a user in, returning a promise with `true` when done
-  * @param  {string} username The username of the user
+  * @param  {string} webid The webid of the user
   */
-  login (username) {
+  login (webid) {
     if (auth.loggedIn()) return Promise.resolve(true)
 
     // Post a fake request
-    /*return request.post('/login', {username, password})
+    /*return request.post('/login', {webid, password})
       .then(response => {
         // Save token to local storage
         console.log("woo")
@@ -32,7 +32,7 @@ let auth = {
     let config = {
       method: 'head',
       //url: 'https://seannives2.databox.me',
-      url: username,
+      url: webid,
       withCredentials: true
     }
     /*
@@ -65,13 +65,13 @@ let auth = {
   },
   /**
   * Registers a user and then logs them in
-  * @param  {string} username The username of the user
+  * @param  {string} webid The webid of the user
   */
-  register (username) {
+  register (webid) {
     // Post a fake request
-    return request.post('/register', {username})
+    return request.post('/register', {webid})
       // Log user in after registering
-      .then(() => auth.login(username))
+      .then(() => auth.login(webid))
   },
   onChange () {}
 }

@@ -14,6 +14,14 @@ class Home extends Component {
 
             <p>Try logging in with a <a href='http://webid.info/'>WebID</a>!</p>
           </section>
+          <section className='text-section'>
+            <p>Todo:</p>
+              <ul>
+                <li>Fix wildly broken tests</li>
+                <li>Fix auth to handle errors</li>
+                <li>Make Registration work</li>
+              </ul>
+          </section>
         </div>
       </article>
     )
