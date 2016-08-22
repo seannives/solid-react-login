@@ -23,18 +23,17 @@ import {
 /**
  * Effect to handle authorization
  * @param  {string} username               The username of the user
- * @param  {string} password               The password of the user
  * @param  {object} options                Options
  * @param  {boolean} options.isRegistering Is this a register request?
  */
-export function * authorize ({username, password, isRegistering}) {
+export function * authorize ({username, isRegistering}) {
   // We send an action that tells Redux we're sending a request
   yield put({type: SENDING_REQUEST, sending: true})
 
   // We then try to register or log in the user, depending on the request
   try {
     let salt = genSalt(username)
-    let hash = hashSync(password, salt)
+    let hash = hashSync('this-is-a-fake-password', salt)
     let response
 
     // For either log in or registering, we call the proper function in the `auth`
@@ -49,7 +48,6 @@ export function * authorize ({username, password, isRegistering}) {
 
     return response
   } catch (error) {
-    console.log('hi')
     // If we get an error we send Redux the appropiate action and return
     yield put({type: REQUEST_ERROR, error: error.message})
 
@@ -89,13 +87,13 @@ export function * loginFlow () {
   while (true) {
     // And we're listening for `LOGIN_REQUEST` actions and destructuring its payload
     let request = yield take(LOGIN_REQUEST)
-    let {username, password} = request.data
+    let {username} = request.data
 
     // A `LOGOUT` action may happen while the `authorize` effect is going on, which may
     // lead to a race condition. This is unlikely, but just in case, we call `race` which
     // returns the "winner", i.e. the one that finished first
     let winner = yield race({
-      auth: call(authorize, {username, password, isRegistering: false}),
+      auth: call(authorize, {username, isRegistering: false}),
       logout: take(LOGOUT)
     })
 
@@ -103,7 +101,7 @@ export function * loginFlow () {
     if (winner.auth) {
       // ...we send Redux appropiate actions
       yield put({type: SET_AUTH, newAuthState: true}) // User is logged in (authorized)
-      yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}}) // Clear form
+      yield put({type: CHANGE_FORM, newFormState: {username: ''}}) // Clear form
       forwardTo('/dashboard') // Go to dashboard page
       // If `logout` won...
     } else if (winner.logout) {
@@ -138,16 +136,16 @@ export function * registerFlow () {
   while (true) {
     // We always listen to `REGISTER_REQUEST` actions
     let request = yield take(REGISTER_REQUEST)
-    let {username, password} = request.data
+    let {username} = request.data
 
     // We call the `authorize` task with the data, telling it that we are registering a user
     // This returns `true` if the registering was successful, `false` if not
-    let wasSuccessful = yield call(authorize, {username, password, isRegistering: true})
+    let wasSuccessful = yield call(authorize, {username, isRegistering: true})
 
     // If we could register a user, we send the appropiate actions
     if (wasSuccessful) {
       yield put({type: SET_AUTH, newAuthState: true}) // User is logged in (authorized) after being registered
-      yield put({type: CHANGE_FORM, newFormState: {username: '', password: ''}}) // Clear form
+      yield put({type: CHANGE_FORM, newFormState: {username: ''}}) // Clear form
       forwardTo('/dashboard') // Go to dashboard page
     }
   }
