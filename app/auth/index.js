@@ -1,5 +1,8 @@
 import request from './fakeRequest'
 
+import axios from 'axios'
+
+
 let localStorage
 
 // If we're testing, use a local storage polyfill
@@ -13,17 +16,38 @@ if (global.process && process.env.NODE_ENV === 'test') {
 let auth = {
   /**
   * Logs a user in, returning a promise with `true` when done
-  * @param  {string} username The username of the user
-  * @param  {string} password The password of the user
+  * @param  {string} webid The webid of the user
   */
-  login (username, password) {
+  login (webid) {
     if (auth.loggedIn()) return Promise.resolve(true)
 
     // Post a fake request
-    return request.post('/login', {username, password})
+    /*return request.post('/login', {webid, password})
       .then(response => {
         // Save token to local storage
+        console.log("woo")
         localStorage.token = response.token
+        return Promise.resolve(true)
+      })*/
+    let config = {
+      method: 'head',
+      //url: 'https://seannives2.databox.me',
+      url: webid,
+      withCredentials: true
+    }
+    /*
+      TODO:
+        - If the url isn't prefaced with http(s) then it'll default to localhost,
+          so put some checking on that.
+        - Handle error conditions
+        - Put something better than the webid into the local storage token.
+
+    */
+    return axios(config)
+      .then(response => {
+        console.log('wooo, from axios')
+        console.log(response)
+        localStorage.token = response.headers.user
         return Promise.resolve(true)
       })
   },
@@ -41,14 +65,13 @@ let auth = {
   },
   /**
   * Registers a user and then logs them in
-  * @param  {string} username The username of the user
-  * @param  {string} password The password of the user
+  * @param  {string} webid The webid of the user
   */
-  register (username, password) {
+  register (webid) {
     // Post a fake request
-    return request.post('/register', {username, password})
+    return request.post('/register', {webid})
       // Log user in after registering
-      .then(() => auth.login(username, password))
+      .then(() => auth.login(webid))
   },
   onChange () {}
 }

@@ -37,15 +37,15 @@ let server = {
  /**
  * Pretends to log a user in
  *
- * @param  {string} username The username of the user
+ * @param  {string} webid The webid of the user
  * @param  {string} password The password of the user
  */
-  login (username, password) {
-    let userExists = this.doesUserExist(username)
+  login (webid, password) {
+    let userExists = this.doesUserExist(webid)
 
     return new Promise((resolve, reject) => {
       // If the user exists and the password fits log the user in and resolve
-      if (userExists && compareSync(password, users[username])) {
+      if (userExists && compareSync(password, users[webid])) {
         resolve({
           authenticated: true,
           // Fake a random token
@@ -68,21 +68,21 @@ let server = {
  /**
  * Pretends to register a user
  *
- * @param  {string} username The username of the user
+ * @param  {string} webid The webid of the user
  * @param  {string} password The password of the user
  */
-  register (username, password) {
+  register (webid, password) {
     return new Promise((resolve, reject) => {
-      // If the username isn't used, hash the password with bcrypt to store it in localStorage
-      if (!this.doesUserExist(username)) {
-        users[username] = hashSync(password, salt)
+      // If the webid isn't used, hash the password with bcrypt to store it in localStorage
+      if (!this.doesUserExist(webid)) {
+        users[webid] = hashSync(password, salt)
         localStorage.users = JSON.stringify(users)
 
         // Resolve when done
         resolve({registered: true})
       } else {
         // Reject with appropiate error
-        reject(new Error('Username already in use'))
+        reject(new Error('webid already in use'))
       }
     })
   },
@@ -96,11 +96,11 @@ let server = {
     })
   },
  /**
- * Checks if a username exists in the db
- * @param  {string} username The username that should be checked
+ * Checks if a webid exists in the db
+ * @param  {string} webid The webid that should be checked
  */
-  doesUserExist (username) {
-    return !(users[username] === undefined)
+  doesUserExist (webid) {
+    return !(users[webid] === undefined)
   }
 }
 

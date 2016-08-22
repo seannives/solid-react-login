@@ -17,8 +17,7 @@ import {
 /**
  * Sets the form state
  * @param  {object} newFormState          The new state of the form
- * @param  {string} newFormState.username The new text of the username input field of the form
- * @param  {string} newFormState.password The new text of the password input field of the form
+ * @param  {string} newFormState.webid The new text of the webid input field of the form
  */
 export function changeForm (newFormState) {
   return {type: CHANGE_FORM, newFormState}
@@ -43,8 +42,7 @@ export function sendingRequest (sending) {
 /**
  * Tells the app we want to log in a user
  * @param  {object} data          The data we're sending for log in
- * @param  {string} data.username The username of the user to log in
- * @param  {string} data.password The password of the user to log in
+ * @param  {string} data.webid The webid of the user to log in
  */
 export function loginRequest (data) {
   return {type: LOGIN_REQUEST, data}
@@ -60,8 +58,7 @@ export function logout () {
 /**
  * Tells the app we want to register a user
  * @param  {object} data          The data we're sending for registration
- * @param  {string} data.username The username of the user to register
- * @param  {string} data.password The password of the user to register
+ * @param  {string} data.webid The webid of the user to register
  */
 export function registerRequest (data) {
   return {type: REGISTER_REQUEST, data}
