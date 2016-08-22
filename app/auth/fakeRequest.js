@@ -15,9 +15,9 @@ let fakeRequest = {
   post (endpoint, data) {
     switch (endpoint) {
       case '/login':
-        return server.login(data.username, data.password)
+        return server.login(data.webid, data.password)
       case '/register':
-        return server.register(data.username, data.password)
+        return server.register(data.webid, data.password)
       case '/logout':
         return server.logout()
       default:

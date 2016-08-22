@@ -27,8 +27,8 @@ class Login extends Component {
     )
   }
 
-  _login (username) {
-    this.props.dispatch(loginRequest({username}))
+  _login (webid) {
+    this.props.dispatch(loginRequest({webid}))
   }
 }
 

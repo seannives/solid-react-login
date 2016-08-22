@@ -9,7 +9,7 @@ class Form extends Component {
     super(props)
 
     this._onSubmit = this._onSubmit.bind(this)
-    this._changeUsername = this._changeUsername.bind(this)
+    this._changewebid = this._changewebid.bind(this)
   }
   render () {
     let {error} = this.props
@@ -21,14 +21,14 @@ class Form extends Component {
           <input
             className='form__field-input'
             type='text'
-            id='username'
-            value={this.props.data.username}
+            id='webid'
+            value={this.props.data.webid}
             placeholder='https://frankunderwood.databox.me'
-            onChange={this._changeUsername}
+            onChange={this._changewebid}
             autoCorrect='off'
             autoCapitalize='off'
             spellCheck='false' />
-          <label className='form__field-label' htmlFor='username'>
+          <label className='form__field-label' htmlFor='webid'>
             WebID
           </label>
         </div>
@@ -45,8 +45,8 @@ class Form extends Component {
     )
   }
 
-  _changeUsername (event) {
-    this._emitChange({...this.props.data, username: event.target.value})
+  _changewebid (event) {
+    this._emitChange({...this.props.data, webid: event.target.value})
   }
 
 
@@ -56,7 +56,7 @@ class Form extends Component {
 
   _onSubmit (event) {
     event.preventDefault()
-    this.props.onSubmit(this.props.data.username)
+    this.props.onSubmit(this.props.data.webid)
   }
 }
 

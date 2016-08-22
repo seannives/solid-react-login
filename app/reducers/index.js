@@ -14,7 +14,7 @@ import auth from '../auth'
 // The initial application state
 let initialState = {
   formState: {
-    username: ''
+    webid: ''
   },
   error: '',
   currentlySending: false,

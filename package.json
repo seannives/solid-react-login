@@ -8,17 +8,18 @@
     "test": "standard | snazzy --verbose && NODE_ENV=test ava --verbose",
     "deploy": "npm run build && surge -p build -d saga-login-flow.surge.sh"
   },
-  "repository": "sotojuan/login-flow",
   "author": {
-    "name": "Juan Soto",
-    "email": "juan@juansoto.me",
-    "url": "juansoto.me"
+    "name": "Seann Ives",
+    "email": "seann.ives@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Juan Soto",
+      "email": "juan@juansoto.me",
+      "url": "juansoto.me"
+    }
+  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sotojuan/saga-login-flow/issues"
-  },
-  "homepage": "https://github.com/sotojuan/saga-login-flow#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "ava": "^0.16.0",

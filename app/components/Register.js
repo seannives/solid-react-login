@@ -27,8 +27,8 @@ class Register extends Component {
     )
   }
 
-  _register (username, password) {
-    this.props.dispatch(registerRequest({username, password}))
+  _register (webid, password) {
+    this.props.dispatch(registerRequest({webid, password}))
   }
 }
 
